@@ -29,43 +29,57 @@ for i in range(n + 1):
 
 # 각 행에 대해서 전부 정렬하는 함수 따로는 없을듯  <-> X_lines.sort(key=lambda x:x[1])# [1:]로 행 빼고 행마다 정렬이 아님 #행인 인덱스는 시작노드로 맵핑했으니 마음대로 정렬하면 안돼
 
-def dfs(v):
-    if visited[v] == True:  # <-> 미방문으로 한줄처리 체크법이 낫다. ((첫 번짼 어차피 미방문이고, 그후로는 애초에 미방문  조건에서 호출하는 게 나음))
-        return 0  # 이 노드 따라 흐르지 않도록.
-    print(v, end=' ')
-    visited[v] = True
-    for d2 in lines[v]:  # <->[1]Good_for w in sorted(adj_list[n]):
-        dfs(d2)
+# - dfs : 조건 2개 & 함수 5단계
+#   + 조건 : **1.1) Graph_양방향성 (행 별 sorted는 문제 조건에 따라 선택) 1.2) 중복 체크**
+def dfs(v): #(함수호출 때) 1-1먹음v
+    # - DFS - 미방문 체크로 실행화 ((문제 푼 후 복습용 작성)) : 한줄 줄이는 거긴 해도 직관적)
+    visited[v] = True  # 1-2방문처리(먹었쓰니까)
+    print(v, end=' ')  # 2배출 : dfs는 먹을 때 배출
+
+    for d2 in lines[v]: # 3for그래프
+        if not visited[v]: # 4미방문
+            dfs(d2) # 5deep먹어
+    # - 재귀함수 끝날 때  자동 뱉기
+
+    # if visited[v] == True:  # <-> 미방문으로 한줄처리 체크법이 낫다. ((첫 번짼 어차피 미방문이고, 그후로는 애초에 미방문  조건에서 호출하는 게 나음))
+    #     return 0  # 이 노드 따라 흐르지 않도록.
+    # print(v, end=' ')
+    # visited[v] = True
+    # for d2 in lines[v]:  # <-> [1]Good_for w in sorted(adj_list[n]):
+    #     dfs(d2)
 
 
 # - 조건에서 안 그런다는 말 없으면 해야지 (( X _점선 정보가 중복으로 주어지는 경우, 뒤집어서 주어지는 경우 굳이 안 처리함 -> 해야지 함 이후 문제 중에 있음))
-
 from collections import deque
 
-def bfs(v):
-    queue0 = deque([v])  # - 요소 넣고 시작
-    visited[v] = True
 
-    while (queue0):
-        v = queue0.popleft()
-        print(v, end=' ')  # - 출력 : append하는 두곳 보다 pop할 때 한번이 나음 / 큐 선입선출이라 어차피 동일한 순서 & 큐 빌때까지라 어차피 끝까지 뺌
-        for a in lines[v]:  # 2 3 4
-            if not visited[a]:
+# - bfs : 조건 2개 & 함수 1+6개
+def bfs(v):
+    queue0 = deque([v])  # 1-1) 먹어-v0 # - 요소 넣고 시작
+    visited[v] = True # 1-2) v방문
+
+    while (queue0): # [큐-1] while(큐)
+        v = queue0.popleft() # [큐-2] 뱉 v=.pop(0)
+        print(v, end=' ')  # [큐-3] 출력 # -bfs : 뱉고 출력 ( append하는 두곳보다 pop할 때 한번이 나음 / 큐 선입선출이라 어차피 동일한 순서 & 큐 빌때까지라 어차피 끝까지 뺌 )
+
+        for a in lines[v]: # [그래프-1] for그래프[v_자식들]  # 2 3 4
+            if not visited[a]: # [그래프-2] 미방문
                 # <-> if visited[a]==True :
                 #     continue # 이 노드 따라 흐르지 않도록.
                 # print(a, end=' ')
-                visited[a] = True  # - ! a로 해야하는데 실수로 복사해온 코드 v로 그대로 해버리네.
+                queue0.append(a) # [그래프-3]-1먹어
+                visited[a] = True  # [그래프-3]-2방문 # - ! a로 해야하는데 실수로 복사해온 코드 v로 그대로 해버리네.
                 # + 1) 복사해왔을 때 코드 글자 단위체크 2) 변수 이름에 의미 필수 ( 심한 temp 아닌 이상 )
-                queue0.append(a)
 
 
 dfs(v)
 print()
 visited = [False] * (n + 1)
 bfs(v)
-
 # - 1h : 파이썬 기본 사용 체크 조금 / 오랜만에 bfs dfs 의미 떠올리기 조금
 # > 1) visited, 0.1) 그래프의 양방향성 저장 0.2) 행 별 sorted (<-디버깅) 등
+
+# - **개념 : bfs dfs_코드개념_위 기본 꼴 보라**  / 4번코드도 유사
 
 # - 다른 사람 코드[1] bhjadmb21_실행 속도 3배 이상 빠름
 # > 차이 큰 지는 모르겠는데, 행 당 정렬 : 함수 내에서 사용 시 for w in sorted(adj_list[n]):
