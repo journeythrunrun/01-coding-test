@@ -81,7 +81,7 @@ fs(r,c,d_i)
 print (count)
 #print(map0)
 
-
+# - 약 2시간
 # - 문제 푼 후 다른 사람 풀이도 봄
 # [1]jike246
 ##N, M = map(int, input().split())

@@ -15,7 +15,6 @@
 # * 3) 인덱스화 -1주의
 from collections import deque
 
-# - bfs가 보통 dfs보다 빠르다고 읽음
 def bfs(v):
     track[v[0]][v[1]] = v[2]
     queue0 = deque([v])  # - [ ] 안씌워주면 한 요소 v[0] 만 들어감
@@ -35,7 +34,7 @@ def bfs(v):
                 ny] == '1':  # - 이 줄 조건문 조율해서 시복+k 효율화 보다, 이것처럼 인덱스 체크 후! 인덱스 사용
                 track[nx][ny] = v[2] + 1 # - map0에 저장하는 게 더 좋음. map어차피 0,1 문자열이라 구분됨.  # bfs는 어미노드 거리값+1
                 queue0.append([nx, ny, track[nx][ny]])
-                visited[nx][ny] = True  # - append할 때 방문처리. : 벽 원래 체크안함. visit 체크 안 해도 값에 의해 조건문 불퉁과고 아무 실행없으
+                visited[nx][ny] = True  # - append할 때 방문처리. : 벽은 visit 체크 안 해도 값에 의해 조건문 불퉁과고 아무 실행없음
                 # visitd 체크_good :  돌아서온 먼 경로 무시해줄 수 있음 : 높은 거리값 겹치는 걱정 및 min법 필요 없음
 
 n, m = map(int, input().split())
@@ -48,14 +47,14 @@ dy = [1, -1, 0, 0]
 bfs([0, 0, 1])  # 1은 첫 count
 # 1시간 20분.
 # > 코드 오타가 생각보다 있으니,
-# -> 알고리즘 보다도, * 모든 변수 체크도 해보자.
+# -> 디버깅 시 : 알고리즘 보다도, * 모든 변수 체크도 해보자.
 
 # - 다른 사람 코드 [1]jhw7348 : 나보다 1.5배 속도효율
 # > 책에 나온 bfs 시 dequeue의 popleft 사용이 더 빠른 거 맞나 / 빠른 코드들에서 쓰는 거 못봤는뎅 /
 # : 전엔 pop 이번엔 del queue[0]
 
 # <-> 정석이어서 꽤 괜찮은 정도와 그냥 더 빠른 거의 차이인가
-# > '123'도 map list로 가능 -> [1,2,3] : arr.append(  list(map  (int,input())))
+# > '123'도 map_int->list로 가능 -> [1,2,3] : arr.append(  list(map  (int,input())))
 #    1 2 3 에서 map 전에 split한 건 공백 없애려고 했던 거고 분리화는 map으로도 가능 _ 백 없는 것123
 # > 부등식 조건 양쪽 동시에 쓰시네. 사람들 왜 안 썻었지 으음 일단 보류   : if 0<=x<n ..
 
@@ -69,7 +68,7 @@ bfs([0, 0, 1])  # 1은 첫 count
 #     arr.append(list(map(int,input())))
 
 # while queue:
-#     a,b = queue[0][0],ㄴㄴqueue[0][1]
+#     a,b = queue[0][0],queue[0][1]
 #     del queue[0]
 #     for i in range(4):
 #         x = a+dx[i]

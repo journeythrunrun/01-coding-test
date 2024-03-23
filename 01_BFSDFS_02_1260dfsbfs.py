@@ -54,6 +54,25 @@ from collections import deque
 
 
 # - bfs : 조건 2개 & 함수 1+6개
+''' 04문제
+# - bfs-그래프 생성
+# > 0.1) 양방향 그래프 형성폼 0.2)중복(엣지 케이스) 처리한
+graph=[ [] for _ in range(n+1)]
+for _ in range(n_connect):
+    a, b = map(int, input().split())
+    if b not in graph[a]: # - 갈 곳에 갈 놈이 이미 있진 않은지 체크 
+        graph[a].append(b) # - append
+    if a not in graph[b]: # 인덱스 에러 안남. -> 모든 행 빈리스트 가지게 만들어둬서 문제없음
+        graph[b].append(a)
+'''
+''' 04문제
+# - 개념 : bfs(더 빠름)/dfs 개념 암기 (( 디버깅으로 찾기보다 애초에 한방해결이 나음))
+# > bfs : 조건 2개 & 함수 1+6개
+# [조건] 1.1) Graph_양방향성 (행 별 sorted는 문제 조건에 따라 선택) 1.2) 중복 체크**
+# [함수] 1) 먹어-v0 & 방문
+# [함수] [큐]3.1) While(큐) 3.2) 뱉 v=.pop(0)3.3) 프린트     [그래프]3.4) for 그래프[v_자식들] 3.5) 미방문 _ 3.6) 먹어(.append) & 방문
+'''
+
 def bfs(v):
     queue0 = deque([v])  # 1-1) 먹어-v0 # - 요소 넣고 시작
     visited[v] = True # 1-2) v방문
