@@ -16,7 +16,7 @@ n_connect=int(input())
 graph=[ [] for _ in range(n_person+1)  ]
 for _ in  range(n_connect):
     parent, son= map(int, input().split() )
-    if parent not in graph[son] : # - 인덱스 에러 안남. -> 모든 행 빈리스트 가지게 만들어둬서 문제없음
+    if parent not in graph[son] :
         graph[son].append(parent)
     if son not in graph[parent]:
         graph[parent].append(son)
@@ -30,11 +30,11 @@ while(queue):#1
     v=queue.pop(0)# - 모든 사람 거치는 순서 한 번씩 볼 필요 없으므로 3출력 관련 안함 #23
 
     for side in graph[v[0]]:#1
-        if side ==target[1]:# 최종 타겟은 한번만 방문 탈출이라 중복불가여서 미방문체크안해도됨
+        if side ==target[1]:# 오직 최종 타겟은 한번만 방문 탈출이라 중복불가여서 미방문체크안해도됨
             result=v[1]+1
             break
         elif not visited[side] : #2
-            queue.append([side,v[1]+1])# - 3 'v'를 먹음
+            queue.append([side,v[1]+1])# - 3 v를 먹음
             visited[side]=True #3-2
 
 print(result, end='')
