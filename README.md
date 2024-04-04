@@ -3,7 +3,11 @@
 
   + (0) 목표 : 실버 1~ 골드 5 / 프로그래머스 레벨 3 편하게 풀기
   + (0.2) 데모 페이지 개발
-  + (0.1) CS : 262 / https://github.com/gyoogle/tech-interview-for-developer?tab=readme-ov-file
+  + (0.1) CS  
+    > 262  
+    > https://github.com/gyoogle/tech-interview-for-developer?tab=readme-ov-file  
+    > https://www.notion.so/4-Full-Version-6b955b8f5f2540bd8e212c9a34a2b83c
+    
   + 백준   
     ** (1) 지금 풀고 있는 문제집 **  
     ** (2) 회사 기출문제들 **  
