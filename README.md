@@ -6,7 +6,6 @@
   + (0.1) CS  
     > 262  
     > https://github.com/gyoogle/tech-interview-for-developer?tab=readme-ov-file  
-    > https://www.notion.so/4-Full-Version-6b955b8f5f2540bd8e212c9a34a2b83c
     
   + 백준   
     ** (1) 지금 풀고 있는 문제집 **  
