@@ -76,3 +76,29 @@ print(k, end='')
 #  + person_set 추가 및 while조건 엉킴
 #   중간에 생각했던 건데, 다른 거 해결 하려고 넘어가고 이거 다시는 안 한듯
 # #! 하고 해결 스택에 추가해라.. 다른 원인 아니고 이것'도' 해결안됐었다
+
+
+# # - 다른 자 코드[rlaxorud814] : good
+# import sys
+# input = sys.stdin.readline
+# n=int(input())
+# a=[]
+# for i in range(n):
+#     a.append(input().rstrip()[::-1]) # 역순 반환
+    
+# count= 0
+# for i in range(1,len(a[0])+1): # i : bit
+#     b_set=set()
+#     for j in range(n): #학생 수 
+#         b_set.add(a[j][0:i]) # [그학생]의 [0:i 지금 검사하는 bit까지의 값] # 지금까지 보고 있는 값 다 set에 넣음
+#         # 결국 인덱싱 [ : ]를 통해 보고 있는 digit의 값까지 누적하며 보고 비교임. 그 비교가 set 자동중복제거라 시간 복잡도가 추가로 안 들 뿐
+#     # set은 중복이 안되므로 길이가 짧아지지 않으면 중복이 없고 다 다른거임
+#     if len(a)!=len(b_set): # 행의 길이가 다르다 # !=n != b_set : 다음 bit에서도 돌기
+#         count =count+1
+#         continue
+    
+#     else: # 지금 digit까지의 값을 set에 다 넣었을 때, 중복이 하나도 없이 사람인원 수랑 같음
+#         count = count+1
+#         break
+
+# print(count)
