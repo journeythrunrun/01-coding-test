@@ -15,7 +15,7 @@
 import sys
 n, m =map(int, sys.stdin.readline().split())
 
-dict1=dict()
+dict1=dict() # 내가 가진 값 중 찾을 거면, 딕셔너리를 통해 빠르게 찾기 <-> in set1
 set1=set()
 for _ in range(n):
     a, b= sys.stdin.readline().split()
@@ -24,9 +24,7 @@ for _ in range(n):
 answer=[]
 for i in range(m):
     target= sys.stdin.readline().split()[0] # split : 리스트화되기에 [0]
-    # for a in lista:
-    # print(target)
-    # if a[0]==target:
+
     # 찾기
     # m1) in set1
     # m2) 키 있으면 반환해주고 없으면 특정값 주는 get
