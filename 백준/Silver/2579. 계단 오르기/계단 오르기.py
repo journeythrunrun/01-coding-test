@@ -4,7 +4,7 @@
 
 # 맨뒤에서부터 or 완전 탐색
 # 2) 완전탐색 bfs나 dfs로 1이나 2칸씩 넣기
-# <-> 작은 문제로 나눠서 해당지점까지 최대값인 걸로 하기에는 해당 지점을 안 밟을 수 있음-> 모든 지점마다 업데이트? 이전 두칸,1칸값이용?
+# <-> 작은 문제로 나눠서 해당지점까지 최대값인 걸로 하기에는 해당 지점을 안 밟을 수 있음-> 모든 지점마다 업데이트? 이전 두칸 ,1칸값 이용?
 #     : 경우의 수 다 저장보다는 각 지점까지의 max값을 이용해서 다음 값 구하는 게 낫겠다.
 # import sys
 # n=int(input())
@@ -20,7 +20,7 @@
 # max_list[1]=sum(amap[0:2])
 
 # for i in range(3,n):
-#     # 나를 밟는다는 가정에서의 max
+#     # 나를 밟는다는 가정에서의 max_list
 #     # i) 안밟는 애가 -2전 ii) -1전 #어차피 최대 2개오름 <---#X_ 어차피 나는 밟는 거면 그 이전 두개는
 #     max_list[i]=max(max_list[i-2]+amap[i],max_list[i-1]+amap[i]) 
     
@@ -90,10 +90,9 @@ dp[3] = max(stairs[1] + stairs[3], stairs[2] + stairs[3])
 
 # 점화식을 계산합니다.
 for i in range(4, n + 1):
+    # - i-1만 안하고 i-3도 하는 이유 : "안 밟는 것"이 각 경우의 수에서 무조건 포함된 식이어야함.  # X_dp[i] = max(dp[i - 1] + stairs[i], dp[i - 2] + stairs[i])
     dp[i] = max(dp[i - 3] + stairs[i - 1] + stairs[i], dp[i - 2] + stairs[i])
-
+    
 print(dp[n])
 
  
-
-
