@@ -90,7 +90,7 @@ dp[3] = max(stairs[1] + stairs[3], stairs[2] + stairs[3])
 
 # 점화식을 계산합니다.
 for i in range(4, n + 1):
-    # - i-1만 안하고 i-3도 하는 이유 : "안 밟는 것"이 각 경우의 수에서 무조건 포함된 식이어야함.  # X_dp[i] = max(dp[i - 1] + stairs[i], dp[i - 2] + stairs[i])
+    # - i-1만 안하고 i-3도 하는 이유 : "안 밟는 것"이 [3개 연속을 피하기위해] 각 경우의 수에서 무조건 포함된 식이어야함.  # X_dp[i] = max(dp[i - 1] + stairs[i], dp[i - 2] + stairs[i])
     dp[i] = max(dp[i - 3] + stairs[i - 1] + stairs[i], dp[i - 2] + stairs[i])
     
 print(dp[n])
