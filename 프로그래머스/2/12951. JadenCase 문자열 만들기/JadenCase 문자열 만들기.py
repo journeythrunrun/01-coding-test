@@ -21,3 +21,7 @@ def solution(s):
             answer+=s[i]
         j=True
     return answer
+
+# - 26m, +7
+#   + 쉬운데 오래 걸림 : chr ord 동일 적용 안 한 거 빨리 못찾음, 문제를 잘못 이해한 시간 조금
+# - .lower() .upper() 방법을 ord보다 먼저 떠올리자.(시간복잡도 차이는 모름)
