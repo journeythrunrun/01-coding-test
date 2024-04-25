@@ -17,7 +17,7 @@ def solution(s):
             count-=1
         if count <0: # 이미 끝까지 안 봐도 어그러짐
             return False
-    # 여기까지 온 거 : 항상 (가 더 많았음
+    # 여기까지 온 거 : 모든 인덱스에서 (가 )보다 많아왔거나 같았음
     #  -> 그 (가 잘 닫혔는지 확인
     if count!=0:
         return False
