@@ -22,13 +22,15 @@ def solution(numbers, target):
     dec_max=sum([ 2**(i) for i in range(len(numbers))  ])
     
     index_numb=[]
-    for a in range(0,dec_max+1): ## ex 0001 ~ 1111
+    for a in range(0,dec_max+1): ## ex 00 01 ~ 1111
         indexs=bin(a)[2:]
-        str_indexs='0'*(len(numbers)-len(indexs) )+str(indexs) #앞에 0추가
+        str_indexs='0'*(len(numbers)-len(indexs) )+str(indexs) #앞에 '모자랐던 자릿수만큼의'0추가
+        
+        # 이 경우의 수의 합계값 구하기
         temp=sum([ +numbers[i] if str_indexs[i]=='0' else -numbers[i] for i in range( len(str_indexs))  ]) # 'if' 'else' 'for'임. []안에서 for이 맨 앞에 오면 에러 뜸. <-> 예전에 봤던 특정 강의자료 오류 있었나.
         if temp ==target:
             answer+=1 # answer+1은 디버깅에서 문법오류 안뜨고 끝까지 돌아가버림.
-    # 굳이 '0'-> 0 이나 '0' -> + 맵핑하는 특정 변수 생성보다, if문으로 바로 연산    
+    # 굳이 '0'-> 0 이나 '0' -> + 맵핑하는 특정 변수 생성보다, if문으로 바로 '연산' 최종단계 가깝게 가는 게 좋음    
     return answer
 # 4) target=1 / 2개
 
@@ -39,38 +41,40 @@ def solution(numbers, target):
 #   + m1) "0b" 붙어있는 것에 -> int(str1, 2)
 # a = "0b11001000"
 # print("2진수 -> 10진수 : ", int(a, 2))
+
 #   + m2) 0b붙어 있는 숫자형식에 -> int(val1)
 # a = 0b11001000
 # print("2진수 -> 10진수 : ", int(a))
 
 
 # - bfs dfs 장점이 무엇인가? (복잡상황 말고에서 itertools로 풀 수 있는 케이스에서 장점은?)
+
 #   + itertools로 풀 수 있는 케이스면 그걸로 푸는 게 효율적임 
 #    (( 왠지 이 상황에서 bfs장점이 뭐인가 싶더라 ))
+
 # + 최소 경로 '케이스' 
-# + '노드가 너무 많은 케이스(그래프 등)', itertools는 메모리 소비가 심할 수 있지만 bfs는 발자취만 임시로 가져갈 수 있음 
+# + '노드가 너무 많은 케이스(그래프 등)','이동이 많은 케이스' : itertools는 메모리 소비가 심할 수 있지만 bfs는 발자취만 임시로 가져갈 수 있음 
 
 # + (복잡한 문제라서 BFS여야할 때)
 
-# - DFS BFS문제긴 한데 안 쓴 사유 : dfs로도 풀 수 있을 것 같았는데 재귀함수 안좋대서(난 bfs 재귀로 구현했었음. 시간 많으면 재귀 아닌 bfs구현 다시 보던가) 다른 방법 사용
+# - DFS BFS문제긴 한데 안 쓴 사유 : dfs로도 풀 수 있을 것 같았는데 재귀함수 안좋대서(난 dfs 재귀로 구현했었음. 시간 많으면 재귀 아닌 dfs구현 다시 보던가) 다른 방법 사용
     
 
 
 # - 확통_중복 ㅠ : "product"
-#   + [ㅠ]product(자리구별/반복뽑[중복] 가능) [[프로프로프로]] / [P]permutations(자리구별o/반복x)
+#   + [ㅠ]product(자리구별/반복뽑[중복] 가능) [[곱하기]] / [P]permutations(자리구별o/반복x)
 #   + combinations_with_replacement() ( 자리구별x / "반복o")
 #   + combinations( 변수_iterable/2차원 리스트도 ㄱㄴ/.. , r ) # 한 껍질 벗긴 것에서 r개 뽑아줌
 
-#   + m1) product(list1, repeat=3)_list1의 요소를 통째로[행이 될 수도 있음] repeat개 고름
-#   + m2) product( *2rd_list)_list1의 각 행에서 1개씩 고름_반환하는 각 튜플의 요소 수 = list1의 행의 수  
-
+#   + m1) product(list1, repeat=3)_list1의 요소[행이 될 수도 있음] 를 통째로repeat개 고름
+#   + m2) product( *2d_list )_2d_list의 각 행에서 1개씩 고름(모든 곳에서 두 껍질 들어가는 대신 그 안에선1개씩만 가져옴 )_반환하는 각 튜플의 요소 수 = 2d_list의 행의 수  
 
 
 # - 다른사람 코드 2[김현우 , 탈퇴한 사용자 , 박재민 , JayLee92 외 238 명]
 #   + l = [(x, -x) for x in numbers]
-    # print(l)
+    #  print(l)
     #  print(list(product(*l))) # 두 껍질 내에 대한 구별된 경우의 수 . 
-    # [GPT] l : 이중 리스트 or 리스트 속 튜플
+    #  [GPT] l : 이중 리스트 or 리스트 속 튜플
     # * : unpack
     # repeat = 4랑 매우 다름
 
