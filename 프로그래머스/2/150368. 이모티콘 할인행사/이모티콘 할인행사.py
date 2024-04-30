@@ -1,3 +1,5 @@
+## 컨셉잡고 설명해봐야지
+
 # 0)
 # users(#100)	emoticons(#7)	result
 # [[40비율, 10000맥시멈], [25, 10000]]	[7000, 9000]	[1, 5400]
@@ -15,43 +17,51 @@
 # & resu=[0,0] & for in users  i) 유저의 할인율보다 낮은 거 있으면 break ii) resu[1]+= / i) total이 일정가격이상: resu[0]+=1, resu[1]=0  ii) 
 # ->
 
-# 몇개월간 쉬운 문제푸니까 속도는 좀 올라도 좀 더 어려웠던문제 사용했던 기법들 다 까먹었네
+# [어려운 문제 위주로 효율적으로 풀자] ( 몇개월간 쉬운 문제로 꽤 푸니까 속도는 좀 올라도, 예전에 어려운 문제 풀던 때 사용했던 기법들 잘 모름(걍 코딩테스트는 너무 바쁘지 않은 방학 때 등 discrete하게 하면 그렇게 되고 특정기간때 continuous하게 끌어올려야하는 거라 그럴 수도 있음) )
 
+# [t] 2)에서 시간 너무 많이 쓴 것 같다. 2)에서는 비세부 비계산 '틀만 설계' 하려하자
 from itertools import product
-# 100원단위 : # 내가 처리하는 단계는아니네
+## 100원단위 # 내가 처리하는 단계는 아니네[필요없네]
 def solution(users, emoticons):
     answer = []
+    answer2=[0,0]
     # 두자리까지 출력법
-    dict1={10:0, 20:1,30:2, 40:3}
+    dict1={10:0, 20:1, 30:2, 40:3}
     users.sort(key=lambda x:x[0], reverse=True)# [[40, 10000], [25, 10000]]
-    for discounts in product([10 , 20, 30, 40],repeat=len(emoticons)): # 영상체크 ## per=할인율 product   # products할인율
-        fee=[0,0,0,0]# -> 할인율에 따른 총합값 딕셔너리 저장
-        for i in range(len(emoticons)-1,-1,-1): # 모듈씩디버깅
-            # 100-40
-            # +=임
-            fee[ dict1[ discounts[i]  ] ]+=emoticons[i]*(100-discounts[i])*0.01#[i]# 계산 많이 할테니 미리 #+old아님
+    for discounts in product([10 , 20, 30, 40],repeat=len(emoticons)): 
+        fee=[0,0,0,0] # 할인율에 따른 총합값 딕셔너리 저장
+        for i in range(len(emoticons)):
+            # 디버깅 : '할인'율-> 100- 40
+            # 디버깅 : +=임
+            fee[ dict1[ discounts[i]  ] ]+=emoticons[i]*(100-discounts[i])*0.01 # 유저 단계에서 하면 계산 많이 할테니 미리 했음 
         old=0
         for i in range(3,-1,-1):
-            fee[i]+=old
+            fee[i]+=old # 윗단에서 누적하면 안됨. 윗단은 서로 다른 많은 이모티콘에 대한 거임.
             old=fee[i]
-        # 윗값 더하기
-        # print(fee)
+        # > 윗값 더하기 ## 유저가 가지는 할인율에 따른 이모티콘값(할인율 이상 전부 구매)
         
         resu=[0,0] 
-
         for auser in users : # [40, 10000],
-            #  0.30000000000000004
-            # *10 ㅑint?
             auser[0] = int ( ( (auser[0]-1)//10+1 )* 10 ) # 1~10->10*0.01 / 11~20->20*0.01 # 비율 퀀타이제이션
-            if fee[ dict1[auser[0] ] ] >=auser[1]: # *0.01이 소수점돼서 안맞고 그러진 않겠지 /는? 그 파이썬체크
+            if fee[ dict1[auser[0] ] ] >=auser[1]:
                 resu[0]=resu[0]+1
             else :
                 resu[1]+=fee[ dict1[auser[0]] ] 
-                # print('1',resu[1])
-        # answer= if answer[0]
+        ## sort 압축해도 시간 차이 없음. 이 데이터라 그런가
+        # answer2 = [resu[0],max(resu[1],answer2[1])] if resu[0] == answer2[0] else ( [ resu[0],resu[1] ] if resu[0]>=answer2[0] else [ answer2[0],answer2[1]] )
+    # return answer2            
         answer.append(resu)
-    #sort 대신 압축화 굳이
-    answer.sort( reverse=True) # nlogn도 여기 위치는 되려나 2^8 : 충분 # 2순위도 sort해야지 
-    
+    answer.sort( reverse=True) # nlogn <- 2^8*100 : 충분 # 디버깅 : 2순위도 sort해야지  ## sort 대신 압축화 굳이
     return answer[0]
-# 1h 23m : sort 비압축
+    
+# 1h 23m / +2 
+# * 코드 짜면서 모듈씩 출력체크 (디버깅에서 하려면 더 찾기 오래 걸림 & 이것저것 수정)
+# - 파이썬 실수 계산 오차 조심
+#   + M1) round(number, 2) # 소수점 둘째자리까지 반올림 # O(1)
+#   + M2) f'{number:.2f}'
+
+# - 다른 사람 코드 
+#   + 시복면에서는 내 께 나음: O(user)+O(emotion)임(* 아님)  
+#       + sol) * O(7) 수준이었으면 그냥 연산해라. (물론 7 아닐 땐 worst case에서 좋겠지만)
+#   + 난 [코딩 속도가 느려] 
+#       + sol) '기출문제'에서 자동으로 섞여있는 코딩구현 연습해 # '쉬운 문제'에서 연습해도 얻는 것 효율 별로임
