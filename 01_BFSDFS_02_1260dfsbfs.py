@@ -85,10 +85,35 @@ def bfs(v):
                 # <-> if visited[a]==True :
                 #     continue # 이 노드 따라 흐르지 않도록.
                 # print(a, end=' ')
-                queue0.append(a) # [그래프-3]-1먹어
+                queue0.append(a) # [그래프-3]-1먹어   # 주로 [r,c,d거리_dis[a]+1] 같이 저장. # 부모 +1
                 visited[a] = True  # [그래프-3]-2방문 # - ! a로 해야하는데 실수로 복사해온 코드 v로 그대로 해버리네.
-                # + 1) 복사해왔을 때 코드 글자 단위체크 2) 변수 이름에 의미 필수 ( 심한 temp 아닌 이상 )
+                # + 1) 복사해왔을 때 코드 글자 단위체크 2) 변수 이름에 의미 필수 ( 심한 temp 아닌 이상 )                
+'''
+                # - 최단 '경로' 
+                # 여기서 a위치의 부모 위치 저장 parent[a[0]][a[1]]=v 
+                # & bfs니까 유일한 방문들 중에 최단발자국도 남구나 
+                # dfs와달리 거리순으로 가서 어차피 닿는 것도 최단발자취로 닿음(둘다 목표만 다른거지 어차피 미방문노드만 가긴함) 
+# v1
+path=[]
+last=[m,n]
+while(1):
+    if last=[0,0] : 
+        break
+    new=parent[last[0]][last[1]]
+    print(new)
+    last=new # ((합칠 생각은 했었는데 코드가 덜직관적?))
 
+# v2
+
+    # 경로 역추적
+    path = [] # 경로 저장을 위함
+    step = goal
+    while step: # step이 부모 거슬러 올라가는데, 첫위치는 이전부모 없을 거라 자동 탈출
+        path.append(step) # 경로 저장 및 출력을 위한 것
+        step = parent[step] # 그냥 바로 스텝이 스텝 거슬러 올라가 받는거 
+
+    return path[::-1]  # 경로를 역순으로 반환하여 시작점에서 종료점 순으로 정렬
+'''
 
 dfs(v)
 print()
