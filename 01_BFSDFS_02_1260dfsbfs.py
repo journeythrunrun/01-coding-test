@@ -37,7 +37,7 @@ def dfs(v): # (함수호출 때)1-1_v먹음
     print(v, end=' ')  # 2출력 : dfs는 먹을 때 출력
 
     for d2 in lines[v]: # 3for그래프
-        if not visited[v]: # 4미방문
+        if not visited[d2]: # 4미방문
             dfs(d2) # 5먹어(deep)
     # - 재귀함수 끝날 때  자동 뱉음
 
