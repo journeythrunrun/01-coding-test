@@ -34,7 +34,7 @@ for i in range(n + 1):
 def dfs(v): # (함수호출 때)1-1_v먹음
     # - DFS - 미방문 체크로 실행화 ((문제 푼 후 복습용 작성)) : 한줄 줄이는 거긴 해도 직관적)
     visited[v] = True  # 1-2방문처리(먹었으니까)
-    print(v, end=' ')  # 2출력 : dfs는 먹을 때 출력
+    print(v, end=' ')  # 2출력 : dfs는 먹을 때 출력     ## dfs라 깊게 갈 때, 다쓰기 전에 닿을 때 먼저 출력
 
     for d2 in lines[v]: # 3for그래프
         if not visited[d2]: # 4미방문
