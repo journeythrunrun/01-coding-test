@@ -61,13 +61,13 @@ def solution(numbers, target):
     
 
 
-# - 확통_중복 ㅠ : "product"
+# - [[itertools]] 확통_중복 ㅠ : "product"
 #   + [ㅠ]product(자리구별/반복뽑[중복] 가능) [[곱하기]] / [P]permutations(자리구별o/반복x)
 #   + combinations_with_replacement() ( 자리구별x / "반복o")
 #   + combinations( 변수_iterable/2차원 리스트도 ㄱㄴ/.. , r ) # 한 껍질 벗긴 것에서 r개 뽑아줌
 
 #   + m1) product(list1, repeat=3)_list1의 요소[행이 될 수도 있음] 를 통째로repeat개 고름
-#   + m2) product( *2d_list )_2d_list의 각 행에서 1개씩 고름(모든 곳에서 두 껍질 들어가는 대신 그 안에선1개씩만 가져옴 )_반환하는 각 튜플의 요소 수 = 2d_list의 행의 수  
+#   + m2) product( *{2d_list} )_2d_list의 각 행에서 1개씩 고름 ## (모든 곳에서 두 껍질 들어가는 대신 그 안에선 1개씩만 가져옴 )_반환하는 각 튜플의 요소 수 = 2d_list의 행의 수  
 
 
 # - 다른사람 코드 2[김현우 , 탈퇴한 사용자 , 박재민 , JayLee92 외 238 명]
