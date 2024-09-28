@@ -140,5 +140,4 @@ def solution(n, computers):
 #             dfs(connected)#2
 #             #1visited[connected]=True
 #             #1targets.append(connected)
-            
     
