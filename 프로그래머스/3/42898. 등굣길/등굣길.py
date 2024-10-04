@@ -126,3 +126,97 @@ def solution(m, n, puddles):
 #             grid[j][k] = (grid[j][k-1] + grid[j-1][k])%1000000007   #[a,b] = [a-1,b] + [a,b-1] 공식
 
 #     return grid[n][m]
+
+
+
+'''
+- 아스키코드, 알파벳함수
+  + ord(), chr() ##ordinal position/value(인터넷피셜)
+  + .islower()
+  + ! 소문자 대문자 케이스 주의
+  + .lower() -> a=a.lower() ##반환만하는 형이라, 원래 애 바꾸려 재저장해야함.
+
+
+  + 알파벳 한 번에 가져오기
+    + from string import ascii_lowercase -> set(ascii_lowercase) 
+
+- 문자열 변경 
+  + .replace('a','b')
+
+- 'a'.join(# )
+  + 입력=반복 객체(5) 1개 & 모든 요소가 str형 => 출력=str 
+
+- 10 초
+  + 파이썬_1초에 2천만 번 연산이 가능하다고 보고 계산 => 10초_2억 번
+
+# - [[시간복잡도]] : 20 < 100 -> O(N^4) # n적용 전에 외운 정리 적을 때는 N.
+#   + 이전 정리와는, 평균과 항상 되는 케이스의 차이일 수도 있음 # 근데 사람들마다 10 정도 등 조금씩 다르기도 함
+#        10이하 N! 
+#        20이하 2^N
+
+# N 범위 100 O(N^4)
+# N 범위 500 O(N^3)
+# N 범위 2x10^3 O(N^2)
+
+# N 범위 10^5 O(NlogN) # 백만은 안되네
+# N 범위 10^7 O(N) # 대신 이건 천만이네
+- ! 문제에 문자 나올 때 : 케이스_소<->대문자 주의
+- str_요소 변경은 안됨 (replace는 커스터마이즈된 변경은아님)-> list화해서 사용. 
+- 구간 요소 값들 거꾸로 '가져오기'는 str, list 둘다 가능 str1[ 7: 3: -1 ] 앞이 높은 숫자여야하는거 주의
+
+
+- 딕셔너리 생성, 조회 
+  + 함수. 특히 .update, dict(zip(
+    + ```
+      >> 1긴 딕셔너리 생성 : [dict(zip())]
+      : 1) target=dict(zip( key_list, value_list))
+          + list로 입력 줄 때, [0 ]*k 하면 값 동기화 되는지 체크 
+  
+      : 2) value를 같은 값으로 만들어줄 때 * value를 
+        + dict1=dict1.fromkeys( key_list, 3_저장) 
+        + fromkeys는 반환형. 
+        + 3_디폴트 None 
+        + 3_value에 list형 저장하지 마삼. 공유돼버림. 
+          + [0]*k는 요소인 0을 복사하는 거라 괜찮지만 [[0]*k]*m에서 m은 요소인 list를 참조해버려서 값이 동기화돼버림. 
+  
+      >> 2수정&없으면 추가 : [x.update([  [2,'aa'], [3, 'bb'] ]) ]
+      : 1) dict1["new"]=1 # new로 하면 변수명으로 인식.
+      : 2) x.update( ~ )
+      : 2.1) x.update( {1: 'sa' , 3:'a'}) 
+      :   input : 한 개의 딕셔너리
+  
+      : 2.2) x.update([  [2,'aa'], [3, 'bb'] ])
+      :   input : 2차원 행열 /  각 행 =[키, 벨류]  
+      :   x.update( zip ([2,3], ['aa','bb']) ) # zip_튜플 
+  
+      : X_2.3) ((키가 문자열일 때))  : x.update(e=90,a=10)  # 1) # 따옴표 빼야함
+  
+      # 샛기~~셋겟
+      >> 3'에러 없는'조회 & 없으면 특정값을 출력&**저장** : [dict1.setdefault(key, 11)]
+      : 1) dict1.setdefault(key, 11) 
+        >  value 출력, 없는 키면 특정값을 출력 & 저장
+        + 해당 키 없으면 원하는 값 반환 가능 
+  
+      >> 4조회만 & 없으면 특정값을 출력 :[x.get('a',0)]
+      : 1) x.get('a',0) # value 출력, 없는 키면 에러 없이 0 출력
+      : > <-> dict1[key1]은 원하는 값 반환은 없음
+  
+      >> 5삭제 
+        +  없는 에러 대비 if문 필요. # -> 없을 시 -1을 저장하던지
+      : 1) 무조건 특정 키 : dict1.pop('b') # 키라서 얘도 인덱스임
+      : 2) 맨 위만 .popitem() 
+          + python 3.7부터 공식적으로 딕셔너리 순서 있대[GPT]
+          + 딕셔너리의 마지막 항목을 제거 & 그 항목을 튜플 형태로 반환
+  
+      : 3) del dict1['a'] 
+      : 4) 전부 삭제 : dict1.clear()
+      ```
+
+
+- 우선순위큐
+  + import heapq
+        q=[]
+        heapq.heappush(q, (food_times[i], i + 1)) # 음식 시간, 음식 번호
+        now = heapq.heappop(q)[0]
+'''
+
