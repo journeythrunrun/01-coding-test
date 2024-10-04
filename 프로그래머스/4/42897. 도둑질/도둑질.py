@@ -89,20 +89,24 @@ def solution(money): #
 
 # - 1h 30m(75%)  x o o x 막판에 귀찮 & 타임오버로 조건 대충 디버깅만 하구 품(논리보다)
 # - 귀찮다
-# - 다른 사람 풀이 (https://velog.io/@imacoolgirlyo/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8F%84%EB%91%91%EC%A7%88-%ED%8C%8C%EC%9D%B4%EC%8D%AC)
+# - 다른 사람 풀이 (+9점 https://velog.io/@imacoolgirlyo/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4-%EB%8F%84%EB%91%91%EC%A7%88-%ED%8C%8C%EC%9D%B4%EC%8D%AC)
+#   + 이전 특정 꺼 먹었는지 안먹었는지 여부 무관하게, max()에 포괄돼있다 
 def solution(money):
+    # - 원 순환 : 중복은 안되니까 [0 ~ 마지막 -1] , [1~마지막] 두 경우의 일차원 범위로 나눠서 품 
+
     dp1 = [0] * len(money)
     dp1[0] = money[0]
     dp1[1] = max(money[0], money[1])
+    for i in range(2, len(money)-1): # 첫 집  경우
+        dp1[i] = max(dp1[i-1], money[i]+dp1[i-2]) # 후자에 o x x o도 포괄됨.  
+        
 
-    for i in range(2, len(money)-1): # 첫 집을 무조건 터는 경우
-        dp1[i] = max(dp1[i-1], money[i]+dp1[i-2])
-
-    dp2 = [0] * len(money)
-    dp2[0] = 0
+    dp2 = [0] * len(money) # - 길이 길어서 메모리 낭비일줄 크게 상관없네 
+    dp2[0] = 0 # - 첫 번째꺼 안먹음. for문을 끝까지 돌려서 마지막꺼 까지 감안하도록함. 
     dp2[1] = money[1]
 
-    for i in range(2, len(money)): # 마지막 집을 무조건 터는 경우
+    for i in range(2, len(money)): # 마지막 집 경우
+        # 점화식.
         dp2[i] = max(dp2[i-1], money[i]+dp2[i-2])
 
     return max(max(dp1), max(dp2)) # 두 경우 중 최대
