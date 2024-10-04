@@ -39,8 +39,10 @@ def solution(N, number):
     for i in range(len(cases)): #i+1개를 사용해서 만들 수 있는지
         # i+1개 = j+1개  + k개 
         for j in range(i) : # i개 다쓰는 건 이미 cases 초기에 넣어놓음.
+            
             for op1 in cases[i+1 -(j+1) -1 ] : # - '개수'를 '인덱스'(가장근접)에서 가져오려면 -1 # k개  
                 for op2 in cases[j] :
+                    
                     cases[i].add(op1+op2)
                     cases[i].add(op1-op2)
                     cases[i].add(op1*op2)
