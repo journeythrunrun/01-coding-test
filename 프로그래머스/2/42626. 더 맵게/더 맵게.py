@@ -9,8 +9,7 @@
 import heapq
 def solution(scoville, K):
     q=[]
-
-    
+    # - 리스트 요소들 한 번에 heapq에 각 요소로 넣는 법 : heapq.heapify(scoville)
     for one in scoville : 
         heapq.heappush(q, one )
     answer=-1
@@ -27,16 +26,17 @@ def solution(scoville, K):
         if one >=K :
             answer=old_answer
             break
-        two=heapq.heappop(q)
+        two=heapq.heappop(q) # - heapq.heappop(q)
         heapq.heappush(q, one+two*2)
-        #print(heapq.heappop(q)) #~
+        #print(heapq.heappop(q))
         # if new > = K:
         #     break
         # print(q)
         old_answer+=1
 
     return answer
-
 # 4) 길이 2, K= 0,1, ..
+
+# - 21m (+4점)
 
 
