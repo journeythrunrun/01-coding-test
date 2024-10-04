@@ -133,44 +133,32 @@ def solution(arr):
         M[ (i,i) ]=numbers[i]
         m[ (i,i) ]=numbers[i]
         
-    # - 짧은 구간 부터, 구간별 M,m  #쪼개기라기엔 쫌 애매하긴함. 완전 커버 되게만 두개로 쪼개는 건 아니라 [i,j]일때 항상 i=0 j=마지막 은 아니니까. 
+    # - 3)_1 짧은 구간 부터, 구간별 M,m  # 여긴 쪼개기라기엔(3)_3이 쪼개기 ) 쫌 애매하긴함. 완전 커버 되게만 두개로 쪼개는 건 아니라 [i,j]일때 항상 i=0 j=마지막 은 아니니까. 
     for length in range(2, len(numbers) +1 ): # 길이가 2인 구간~길이가 전체인 구간
-        # 5,3,1,2,4 # 딥러닝비슷~len(numbers_5)-(length_2-1)=4 # +-1상수는 특정케이스 한개로, 나머지 len(numbers) - length는 증감 체크
-        for case in range( len(numbers)-(length-1)  ) : # case = start
+        # 5,3,1,2,4 # - 딥러닝 윈도우 비슷~len(numbers_5)-(length_2-1)=4 # +-1상수는 특정케이스 한개로, 나머지 len(numbers) - length는 증감 체크
+        for case in range( len(numbers)-(length-1)  ) : # - case = start. 변수이름 더 의미 가지게.
             
             # = !! M, m 값 찾기. 
             # - !! 아래의 다양한 쪼개기 경우에서 'M, m값.'. 부호로만 나누는 M,m화가 전부가 아님
             M_candidate, m_candidate= [],[]
+            
+            # 3)_3
             for k in range( length-1 ) : # 길이가 4처럼 length로 고정돼있다면, 어디서 쪼갤지
                 
-                # 길이 2_(5,3)에서의 M,m구하기 (적기 good 3)구체화된다 ) 
+                # 3) 길이 2_(5,3)에서의 M,m구하기 (적기 good 3)구체화된다 ) 
                 # - 중요 !! 알고리즘 의미 인덱스!  :[case] ~  k위치에서 쪼개~ [case+length-1] # - 이 인덱스를 미리 해둘걸? [start] ~[middle]~ [end]. middle은 start+k같은 것보다, middle자체의 값으로 해야 안 헷갈림. middle=start+k를 해두던가. 
                 
 #                 # - k는 0부터라 [case]보다 큰 값 아님.
-                if ops[case+k]=='+': # 얠 왜 case로 했었냐. case+k임... 쪼개진 위치의 중간인덱스 # ops[case] <-> number[case], number [case+1]
+                if ops[case+k]=='+': # - 얠 왜 case로 했었냐. case+k임... 쪼개진 위치의 중간인덱스 ##ops[case] <-> number[case], number [case+1]
                     M_candidate.append( M[ (case, case+ k ) ]+M[ ( case+k+1 , case+length -1 ) ] )
-                    # old_max=M[ (numbers[case] , numbers[case+ length-2 ]  ) ]+M[ ( k , case+length -1 ) ]
                     m_candidate.append( m[ (case, case+k ) ]+m[ (case+ k+1 , case+length -1 ) ] )
                 else :
                     M_candidate.append(M[ (case, case+k ) ]-m[ ( case+k+1 , case+length -1 ) ] )
                     m_candidate.append(m[ (case, case+k ) ]-M[ ( case+k+1 , case+length -1 ) ] )
-                #print( case, case+ k , case+ k+1,case+length-1 )
-                #print( ' M ', 'm', M_candidate, m_candidate) 
-            #print(M,m)
-            M[ (case, case+length -1) ] = max(M_candidate)
-            m[ (case, case+length -1) ] = min(m_candidate) # 여기도 max로 복붙실화냐. 걍 기왕이면 복붙을 쓰지 말자
-        
-        ## 마지막에 가장 긴 거 구했을 거라.
-    # return 위치가 for문 안이어버렸음.해당 위치에서 answer=마지막 때의 old_answer로 하는 거랑 거기서 'return'해버려서 첫번째 때의 값을 가져오는거랑은 다름.
-    return  M[ ( 0, len(numbers)-1 )  ] # - ! ()
-    # return M[ (0, len(arr)//2 )]
 
-                
+            M[ (case, case+length -1) ] = max(M_candidate)
+            m[ (case, case+length -1) ] = min(m_candidate) # - ! 여기도 max로 복붙실화냐. 걍 기왕이면 복붙을 쓰지 말자
         
-    
-    
-    
-    
-    
-    
+    # - ! return 위치가 for문 안 이었음. 해당 위치에서 answer=마지막 때의 old_answer로 하는 거랑 거기서 'return'해버려서 첫번째 때의 값을 가져오는거랑은 다름.
+    return  M[ ( 0, len(numbers)-1 )  ] # - ! ()
     
