@@ -129,7 +129,7 @@ def solution(m, n, puddles):
 
 
 
-'''
+''' 공부!!
 - 아스키코드, 알파벳함수
   + ord(), chr() ##ordinal position/value(인터넷피셜)
   + .islower()
