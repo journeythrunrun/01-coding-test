@@ -24,37 +24,67 @@
 
 # 요소수까지하면 nlogn개클수도 있겠는데. 최대길이_4*n이라 상수라 ㄱㅊ
 def solution(numbers):
-    # push pop 다 할 거면 nlogn <-> n,. # 디큐의 sort는 ? 
+    # - push pop 다 할 거면_근데 변경되는 요소수까지 반영하여 계산해보진 않았음 : heapq_nlogn+nlogn <-> sort_n+nlogn+n 
+    # - 디큐 : 따로 sort하는 거 없음 
     q=[]
     for number in numbers : # 277
         str_number = str(number)# '277'
         q_part= [ int(one) for one in str_number] # [2,7,7]
-        for i in range( 4-len(q_part) ): # 5 길이만큼 자가복제 & 나중에 쓸때는 길이만큼만
-            #5                
-            q_part.append( q_part[i])#~int(str_number[i] ) ) 
-        q_part.append(len(str_number)) # 길이저장
-        # str_number+'x'*(4-len(str_number)) 
+        for i in range( 4-len(q_part) ): # - 남은 길이만큼 자가복제 & 나중에 쓸때는 길이만큼만 가져다 씀       
+            q_part.append( q_part[i])# - int(str_number[i] ) ) 안되는 이유 : str_number에 6이 있으면 그걸 여러번 반복해야하는데 길이1개라 인덱스로 3번반복불가. append된 q_part는 연속 가능. 
+            # print(i, str_number, q_part)
+
+        q_part.append(len(str_number)) # 나중에 정답에 얼만큼 붙일지 알기 위해 길이저장
         q.append(q_part)
     q.sort(reverse=True)
-    # 10아닌 거 붙이기
-    #print(q)        
-
     answer = ''
     for target in q: # [2,7,2,7,2]
         for i in  range( len(target)) :
-            if i >= target[-1] : # 길이넘으면
+            if i >= target[-1] : # 길이 넘으면 안 붙이기
                 break
             answer+= str( target[i] )
-            #print(i)
-    if answer[0]=="0": # 가장 큰숫자가 0이라는 거임. 0으로만 1개이상 이어진 경우
+    if answer[0]=="0": # 가장 큰숫자가 0인 상황. 0으로만 1개이상 이어진 경우
         answer="0"
     return answer
 # 4) numbers길이 1, 
 # 원소 0, 
 
 
-# - 1h: 시간초과로 테스트케이스 1개 질문방에서 값봄
+# - 1h_시간초과로 테스트케이스 1개 질문방에서 값봄(+3점)
 #   >  54m : 1문제 틀림 
 #   + [0,0] -> "0" : 0주의 :'int 0'은 '붙여도' '0'. | 길이는 1부터여도 2까지 보기? 
-#  이전풀었던문제 들
+#  - 이전에 풀었던 문제들->캘린더
 
+# - 다른 사람 풀이 [Roasters , 김나래 , 김래현 , 김준호 외 4496 명]
+def solution(numbers):
+    numbers = list(map(str, numbers)) # - map이용해서 빠르게, 정수인 list->str인 list화 ##['3','38','1000','0'] ##sort=	['0', '1000', '3', '38']
+    a.sort()
+    print(a) 
+    numbers.sort(key=lambda x: x*3, reverse=True) 
+    # - x*3로 해도 정렬할 기준인 거고 그 x를 해당 순서로 정렬하는 거임.
+    # - 복제한 것을 sort기준으로 함으로써, 굳이 number의 요소들 하나하나 처리할 필요 없음. 
+    # - '문자열이' 'sort가 됨'. : '문자열 기준의 sort'라서 문제에서 원하는 대로 거의 sort 됨. 
+    #   + 그러나 '3'이 '38'보다 작음처리임. 실제론 후자가 먼저 쓰여야 하니, 앞서 내가 푼 방법처럼 자기복제.
+    # - 정렬할 값으로 복제한 게 최대 길이 초과해도 괜찮음. 복제한 게 길이가 더 길었는데 그 초과한 길이 직전까지 같다는 거는 그냥 그 복제한 거 쓰는 게 맞는 거임 (이유는 내 풀이 전 부분에 좀 적어둠)
+    # - 0 : 마지막에 int 씌워주고(00 0화) 다시 str씌워주면 됨
+    # - ''.join
+    return str(int(''.join(numbers))) 
+
+
+
+
+# - 다른 풀이2 [이준성 , KYUYOUNG-SHIM , 임지수 , 이현성 외 47 명]
+#   + 적었던 방법 중 a,b 합친 결과 두개 비교하는거 sort에서 커스터마이징 가능했음
+#   + key=  functools . cmp_to_key (comparator)  & comparator(a,b) 정의_return_정렬할 때 a가 큰 쪽이라 칠 경우에 1, b가 큰 쪽이라 칠 경우에 2, 같을 때 0 반환하도록 
+#     > sort, sorted 다 가능
+import functools
+def comparator(a,b):
+    t1 = a+b
+    t2 = b+a
+    return (int(t1) > int(t2)) - (int(t1) < int(t2)) #  t1이 크다면 1  // t2가 크다면 -1  //  같으면 0
+
+def solution(numbers):
+    n = [str(x) for x in numbers]
+    n = sorted(n, key=functools.cmp_to_key(comparator),reverse=True)
+    answer = str(int(''.join(n)))
+    return answer
