@@ -75,7 +75,7 @@ def solution(numbers):
 
 # - 다른 풀이2 [이준성 , KYUYOUNG-SHIM , 임지수 , 이현성 외 47 명]
 #   + 적었던 방법 중 a,b 합친 결과 두개 비교하는거 sort에서 커스터마이징 가능했음
-#   + key=  functools . cmp_to_key (comparator)  & comparator(a,b) 정의_return_정렬할 때 a가 큰 쪽이라 칠 경우에 1, b가 큰 쪽이라 칠 경우에 2, 같을 때 0 반환하도록 
+#   + key=  functools . cmp_to_key (comparator)  & _comparator(a,b) 정의_return_정렬할 때 a가 큰 쪽이라 칠 경우에 1, b가 큰 쪽이라 칠 경우에 2, 같을 때 0 반환하도록 
 #     > sort, sorted 다 가능
 import functools
 def comparator(a,b):
