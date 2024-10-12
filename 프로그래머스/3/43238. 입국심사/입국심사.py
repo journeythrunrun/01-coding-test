@@ -24,31 +24,33 @@
 def solution(n, times):
     times.sort()
     # print(times)
-    start=1# - 최소값 대충잡는다 해도 기왕이면 1로 해라. times[0]*n는 아니지.
+    start=1# - 최소값 대충 잡는다 해도 기왕이면 1,0으로 해라. times[0]*n는 아니지.
     end=times[-1]*n # 대충
     # - 마지막쯤 케이스 : 탈출없는 while문에서 L=M=R됐던 값 : While문 밖에서의 M (while밖은 end < start 상태이고 케이스에 따라 막판에 end나 start가 바뀜)
     #   > Ex. 1,3일때_2 (1,4일때_2 -> 34or 12) -> [1)길이1]i. 1,2_1 ii. 2,3_2  [L,R이 1차이일 때 M은 L화]->[2)동기화] i-i.1,1_1 i-ii.2,2_2 , ii. 3,3_3 ->[3)탈출된비동기화] i-i.1,0_(old1) 되고 탈출, i-ii.2,1_old2 되고 탈출 ii. 3,2_oldOR4,3_old3되고 탈출
-    #   + 엄밀변수는 시간걸리니까 동기화된 값 앞뒤 세개 조사하면 편함
+    #   + 엄밀 생각은 시간걸리니까 딕셔너리에 update해두고 동기화된 값, 앞 뒤 두개씩 조사하면 편함. L-1_F, R+1_T인거라 [2)False,L=M=R,True] 이라서 한개씩만 조사해도 충분하긴함
+    
     ##find=False
-    dict1={}
+    # dict1={}
     ##answer 값 범위에서 탐색
     while(start<=end): # start > end이면 탈출
-        # print(dict1)
         mid=(start+end)//2 #1,4->2 13->2 12->1 22 11 
-        #print(start,mid,end,'->')
-        #answer_28//times[1] +  answer//times[1]
+        
+        # - 정답시간을 times에 분배. 만족 : n=a+b ==<= answer_28//times[1] +  answer//times[1]
+        
         result=0
         for time in times:
             result+=mid//time
-        if n <=result : # 만족 경우[answer으로 n명 충분히 검사함] ##타겟이 작으니까 왼쪽으로 가기 위해 -1
+        if n <=result : # 만족 경우[answer로 n명 충분히 검사함] 
+            # - 타겟이 더 작은 쪽에 있으니까 왼쪽으로 가기 위해 -1
             end=mid-1
-            dict1.update({mid:True})
+            # dict1.update({mid:True})
             #find=True
         else:#if n > result : 
             #if find==True:
-            dict1.update({mid:False})
+            # dict1.update({mid:False})
             start=mid+1
-        #~print(start,mid,end)
+            
     # - 경우 : n명 넘는 값이 정답인 케이스일 수도 있음((ex.막판에 어디에서 가서하든 종료시간 똑같을 때))
     #   + -> 만족 때 왼쪽으로 '연속'으로 갔는데 불만족할때까지.((왼쪽이 불만족이며 자신이 만족일 때가 답)) (일치케이스가 아니고 이상이면 만족이라 우측죄다 만족케이스이어서 연속으로 가면 이진탐색의 이점을 잃음 그래서 -> ) 우연히 정답 딱 일치하는거말고 start-end= 1길이 나올 때까지 계속 계산해야함(그게 정답인 불만족만족의 경계인 이유 : 왼쪽탐색/오른쪽탐색을 하게 되는 조건이 만족/불만족이기 때문임. 그래서 이진탐색하며 두 조건 경우의 경계를 찾아나감.)[return안하고 끝까지 계산.(&저장_꼭 안해도됨)] m1 막판케이스 OR m2 배열에 저장해두기&탐색_이 문제에선 마지막에 나오는 경계찾으면 돼서 전체 다 탐색할 필요없음]. 
     
@@ -59,6 +61,7 @@ def solution(n, times):
         return mid+1
     else :
         return mid
+    # dict1에 저장하는 방법 위아래에서 껐음
 #     list1=[start,mid,end]
 #     # print(list1)
 #     list1.sort()
@@ -82,6 +85,8 @@ def solution(n, times):
 
 # - 1h 8m(+2?점)
 #   > 이분탐색 첫 문제라, 이분탐색 돌아가는 중간 출력 학습용으로 40m보다 더 시간씀
+    # + 정답시간을 길이가 N인 times에 분배해서 계산. 만족 : [충족해야하는 조건과 관련된 변수]n=a+b ==<= answer[정답변수]_28//times[1] +  answer//times[1]
+    # + 이분탐색 쓰면서도 최적화식 생각해야하기도함. 첨에 //했을 때 그 식 먼저 구체화하는 게 빨랐겠다. | 최적화식_케이스에서의 식에서 생각
 
 # - 다른 사람 풀이[신동주 , 변동현 , 이성재 , 탈퇴한 사용자 외 11 명] 
 #   + answer = start로 하심. end 값 변경 때 mid로 한 거나 start<end 조건 차이로 인해 딱 저거인가. 난 처음 이론에서 배운 등호로 쓸 거라 적당히 패쓰
