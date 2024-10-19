@@ -6,7 +6,10 @@
 from itertools import permutations
 def solution(numbers):
     answer=0
-    # - itertools 사용 시  (1) 자리구별  있음. (2) [중복선택]  안됨.
+    
+    # - itertools 사용 시  
+    #   + 시간복잡도 : 생성은 병렬덧셈 & 생성된 길이는 for아래와 곱하기임. for 옆에 있다고 생성도 곱하기로 착각은 놉
+    #   + (1) 자리구별  있음. (2) [중복선택]  안됨.
     #   + ㅠ(product)말고 p (combinations_with_replacement도 말고)
     #소수 효율 알고리즘 굳이?
     
