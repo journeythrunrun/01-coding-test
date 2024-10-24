@@ -126,12 +126,12 @@ def solution(n, times):
     #   + 리스트와 다른 특징을 가진 타입의 차이 : 전역 느낌인 '리스트'면[함수 밖에서 정의된 리스트] 함수 내이더라도 'global 글자 없이도' '그 전역 리스트를 바꿀 수도 있[인덱싱]'을 뿐
     #   + 함수 내에서 리스트의 요소값 변경 말고, 재정의(리스트자체 = )를 하면 그 이름의 로컬 리스트가 생기는 것임
 '''
-aaa=13
+aa=13
 def bbb():
-  print(aaa) # - 뒤 라인 추가하면 에러 뜸. 아래 라인이라도 재정의 해버리면 함수에서 로컬변수 돼버렸기에 그럼 # local variable 'aa' referenced before assignment
+  print(aa) # - 뒤 라인 추가하면 에러 뜸. 아래 라인이라도 재정의 해버리면 함수에서 로컬변수 돼버렸기에 그럼 # local variable 'aa' referenced before assignment
   # aa=24
 bbb()
-print(aaa)
+print(aa)
 '''    
 # - O(log n) : 시간복잡도, 점근 표기법에서 log의 밑은 중요하지 않음. [https://joyhong-91.tistory.com/12]
 
@@ -163,5 +163,5 @@ def binary(list1, start, end, target):
 # - 코테 시 추가로 생성해도 괜찮은 정도 대략(시간, 메모리 제한 있음)
     # a=list(range(10000000))
 #   + 1초 & 192MB 문제_솔루션 외 추가 생성[https://www.acmicpc.net/problem/2178]
-#     + [백만]_성공_대충8MB,4ms. 천만_[pypy3]는성공(40ms&약80MB(128MB문제도 있으니 천만 지양)추가됨)python3에선메모리초과
+#     + [백만]_성공_대충 python_40MB,60ms | pypy_8MB,4ms. 천만_[pypy3]는성공(40ms&약80MB(128MB문제도 있으니 천만 지양)추가됨)python3에선메모리초과
 #   + 백억_메모리에러, 십억,억_실행시간 10초 초과, 천만_10초보단 낮음.
