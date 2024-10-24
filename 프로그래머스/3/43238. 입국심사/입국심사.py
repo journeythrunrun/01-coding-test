@@ -133,7 +133,7 @@ def bbb():
 bbb()
 print(aa)
 '''    
-# - O(log n) : 시간복잡도, 점근 표기법에서 log의 밑은 중요하지 않음. [https://joyhong-91.tistory.com/12]
+# - O(log n) : 시간복잡도, 점근 표기법에서 log의 밑은 중요하지 않음. [https://joyhong-91.tistory.com/12] 
 
 # - 이분 탐색 [이론 공부 : https://www.youtube.com/watch?v=-Gx0T92-7h8&list=PLVsNizTWUw7H9_of5YCB0FmsSc-K44y81&index=26]
 #   + O(log n)
