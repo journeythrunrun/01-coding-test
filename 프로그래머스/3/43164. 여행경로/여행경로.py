@@ -97,7 +97,6 @@ def dfs(target, dict1, answer, len_t , real_answer): # - N : 중복 출발지인
 def solution(tickets):
     
     # tickets.sort() # - 시복내라 굳이 안 한 최적화_딕셔너리에 겹치는 게 있을 때만 그 리스트에서 sort해주는 게 나음
-    visited=[False]*len(tickets)
     target="ICN"
 
     # - dfs/bfs : 연결맵, 맵, 그래프  
