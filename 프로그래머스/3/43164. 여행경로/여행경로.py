@@ -19,8 +19,6 @@
 # visited=[]
 import copy
 def dfs(target, dict1, answer, len_t ): # - N : 중복 출발지인 애 있으면 티켓들의 길이와 dict1길이 다름 #$ 주석 수정
-    # print('함수시작', target, dict1, answer, len_t) 
-    
     # (1) 종료조건
     if len(answer)== len_t +1: 
         return answer # 함수 사라지면 변수 사라지기 때문에 bfs 다시 올라갈 때(dfs 함수 구현 자동임.) 변수 계속 건네줘야함. 전역변수는 함수에선 굳이.
@@ -28,18 +26,15 @@ def dfs(target, dict1, answer, len_t ): # - N : 중복 출발지인 애 있으�
     # (2) 부모자식
     
     # dict1[target]에 있는 애들에 대해서만 dfs로 함수 쌓음
-    if not dict1.get(target):# 없으면
-        return None
+    ### 난 딕셔너리라 아래를 했어야
+    # - 딕셔너리 조회 시 주의!! 붙이기
+    # if not dict1.get(target):# 없으면
+    #     return None
         
-    for index, airport in enumerate( dict1[target]): # 'ICN', 'AAA' # dict1[target]가 list인 거고 그 안 요소 각각은 한 개
+    for index, airport in enumerate( dict1.get(target,[]) ): # 'ICN', 'AAA' # dict1[target]가 list인 거고 그 안 요소 각각은 한 개
         # - !!!! dict1[target] 여러 개중에 airport 1개만 쓴 거지, airport 이전것들까지 다 쓴 거 아님. 해당 티켓은 남아있지. 티켓을 여러개씩쓰진 않지.
         # if index>=1:
         #     print('index 1 >=', dict1)
-            
-            # ["ICN", "ATL", "ICN", "SFO", "ATL", "SFO"]
-            # ["ICN", "SFO", "ICN", "ATL", "SFO", "ATL"]
-            # [["ICN", "SFO"], ["ICN", "ATL"], ["SFO", "ATL"], ["ATL", "ICN"], ["ATL","SFO"]]
-            # [["ICN", "ATL"], ["ICN", "SFO"], ["ATL", "SFO"], ["SFO", "ICN"], ["SFO","ATL"]]
             # 
         # (3) 사용 
         # - 방문 미방문 검사 없는 이유는 저기 애들 다 쓸거로 넣어놔서
