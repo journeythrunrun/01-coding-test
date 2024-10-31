@@ -96,7 +96,7 @@ def dfs(target, dict1, answer, len_t , real_answer): # - N : 중복 출발지인
 
 def solution(tickets):
     
-    tickets.sort() # - 시복내라 굳이 안 한 최적화_딕셔너리에 겹치는 게 있을 때만 그 리스트에서 sort해주는 게 나음
+    # tickets.sort() # - 시복내라 굳이 안 한 최적화_딕셔너리에 겹치는 게 있을 때만 그 리스트에서 sort해주는 게 나음
     visited=[False]*len(tickets)
     target="ICN"
 
@@ -107,7 +107,8 @@ def solution(tickets):
             dict1[ tickets[i][0] ].append( tickets[i][1]   ) # - value를 리스트로 넣어놨음. 재할당 없이 그 위치에 바로 append 가능
             # renew=dict1[ tickets[i][0] ] [:]
             # renew.append( tickets[i][1]   )
-            # dict1[ tickets[i][0] ]=renew # 원래 있던 값에 추가            
+            # dict1[ tickets[i][0] ]=renew # 원래 있던 값에 추가
+            dict1[ tickets[i][0] ].sort()
         else : 
             dict1.update([ [  tickets[i][0],  [tickets[i][1]]     ]]) # - update(딕셔너리/2차원리스트/zip([],[]))
             
@@ -167,16 +168,20 @@ def solution(tickets):
 #   + 만든 딕셔너리 사진을 기준으로, 그걸 자식 노드로 하는 bfs. bfs~ 연결노드맵생각
 
 
-#   + 공부할겸 다른 사람 코드보다 복사부분 없앤 O(n)화 코드 만들었댱 : 80 ms 대이던 거
+#   + 공부할겸 다른 사람 코드보다 복사부분 없앤 O(n)화 코드 만들었댱 : 근데 시복
 
-# - 퀴즈 _빠른 알고리즘 돌아가는 꼴/시복 계산 촥촥 -> 복사 시 총 시복 :       O(n*2 이상인거 맞음) answer에 한 요소 추가할 때마다 티켓 다 담긴 딕셔너리 복사하므로.
+# - 퀴즈 _빠른 알고리즘 돌아가는 꼴/시복 계산 촥촥 -> 딕셔너리 복사 시 총 시복 ->     O(n**2 이상인거 맞음) answer에 한 요소 추가할 때마다 티켓 다 담긴 딕셔너리 복사하므로.
+#   + answer 복사 시 시복  ->  다른 사람 풀이 실행시간 보니까 나랑 시복 크게 차이 안나네. 테스트 케이스가 4개 밖에 없어서 다른 거에서 시간 절약하신 부분일까 answer복사는  매번 n 까진 아니고 dfs로 1, 2, 3 으로 복사해나가서 worstcase아니고는 시복이 식이 바뀔 정도로 ㄱㅊ한 건가 흐음. 시복은 worst로 인데.. 아 나 어차피 시복 내이라 sort최적화 안했어서 거기가 가장 큰 부분이 됐구나. n**2을 n으로 줄일거면 n**2부분 말고 상쇄 지워진 항도 살펴봐야함. 암튼 뭔가 비슷하네. 
+
+
+
 
 # - 다른 사람 코드 [https://school.programmers.co.kr/learn/courses/30/lessons/43164/solution_groups?language=python3]
 '''
 from collections import defaultdict 
 
 def dfs(graph, N, key, footprint): # - dfs ( [그래프],  _굳이_, v, [최종 정답일] 리스트 변수 # - ~~ bfs의 while
-    print(footprint)
+    # print(footprint)
 
     if len(footprint) == N + 1: ## - 탈출조건 
         return footprint
@@ -197,7 +202,7 @@ def dfs(graph, N, key, footprint): # - dfs ( [그래프],  _굳이_, v, [최종 
 def solution(tickets):
     answer = []
 
-    graph = defaultdict(list) - collections에 있는 defaultdict(기본값 list로 설정)
+    graph = defaultdict(list) # - collections에 있는 defaultdict(기본값 list로 설정)
     
     N = len(tickets)
     for ticket in tickets:
