@@ -151,6 +151,7 @@ def solution(jobs):
 # m2) Priority queue[우선순위 큐] 
 # > m1) 리스트로 구현
 # : 삽입_O(1), 삭제_O(n)_*그냥 pop()은 O(1). 우선순위 관련해서 구현하고 저렇게 쓰려면 O(n)인가. 
+# : 우선순위대로 넣어주는 거 아니면 다시 sort해야함. NlogN
 # > m2) heap[힙]으로 구현
 # : 삽입_O(log N), 삭제_O(log N) : N개면 N log N
 
