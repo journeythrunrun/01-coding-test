@@ -9,12 +9,12 @@
 
 from collections import deque
 n, initial, goal, u, d = map(int, input().split())
-# - 백만 nlogn
+# - 백만 : 운좋으면? nlogn
 answer="use the stairs"
 visited=[0]*(n+1)
 
 visited[initial]=1
-q=deque([ [initial,0]]) # - => [[로 생각하자.
+q=deque([ [initial,0]]) # - =>deque([[로 생각하자.
 while(q):
     v, distance= q.popleft()
     # print(v,distance)
@@ -36,6 +36,7 @@ print(answer, end='')
 # 5) #$
 # - 6) 시간 남으면 2~3개*3단계
 
+# - !  _ = 리스트 : 주소참조
 # - A) 인덱스 -1 =>  + 다 땡겨서 하면 실수하니까 초기화+1개
 
 # - 23m (제출하고 틀림) / 20m_(인덱스바로 쓰기 위해 초기화 +1개)
