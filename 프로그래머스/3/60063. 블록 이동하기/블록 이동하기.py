@@ -21,7 +21,7 @@ def check_and_go(nnr1,nnc1,nnr2,nnc2 ,n,v,q,visited) :
 def solution(board):
     # - m1 bfs한 번 쓰는데 'append를 병렬 실행'. bfs 함수 자체를 병렬로 실행하진 않음. 
     # - ! 런타임 에러 : 엣지 케이스 말고 논리에서 문제가 있어서 그러기도 함
-    #   + 심지어 이런 상황에서도 : 여기서 answer=0을 안하면 테스트케이스 6에서만 (break에해당하는 if문 내부를 못 가고 )런타임 에러가 남. 하면 오답.## 보드의 길이는 5이상이고 항상 목적지에 도착할 수 있는 경우만 있는데 왜 특정케이스에서만 저런 에러가 나지 ?
+    #   + 심지어 이런 상황에서도 : 여기서 answer=0을 안하면 테스트케이스6에서만 (break에 해당하는 if문 내부를 못 가고 )런타임 에러가 남. answer=0을 하면 오답.## 보드의 길이는 5이상이고 항상 목적지에 도착할 수 있는 경우만 있는데 왜 특정케이스에서만 저런 에러가 나지 ?
     
     n=len(board)
     visited=  [ [0]* (n*n) for _ in range(n*n) ] 
@@ -278,7 +278,7 @@ def solution(board):
         pos, cost = q.popleft()
         print( [ [a[0]-1,a[1]-1 ] for a in pos] ,cost)
         # (n, n) 위치에 로봇이 도달했다면, 최단 거리이므로 반환
-        if (n, n) in pos: # - 비행체의 두 점 중 한 점이라도 도착점 : or보다 (도착점), in 이 코드 짧네
+        if (n, n) in pos: # - 비행체의 두 점 중 한 점이라도 도착점 : (도착점)을 위해 각 행/열좌표에 대해서 or로 검사하는 것보다, 좌표 한 번에 in (N,N) 이 코드 짧네
             return cost  
         # 현재 위치에서 이동할 수 있는 위치 확인
         for next_pos in get_next_pos(pos, new_board): # - 우와 난 append랑 visited 반복 되길래  go를 함수로 만드려고 했었는데, [이 사람은 더 큰 범위의 함수]'v 다음으로 갈 수 있는 위치들'함수화해서 for에서 돌림. (~~ bfs의 for부분이랑 비슷하네. [자식들을] [함수로든 미리 구해서] for에서 돌자.) 그래서 for내에서 append와 visited가 자동으로 반복됨. []
