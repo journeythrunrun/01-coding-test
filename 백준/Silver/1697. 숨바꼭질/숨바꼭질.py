@@ -1,4 +1,4 @@
-# 1) 숨바꼭질
+       # 1) 숨바꼭질
 
 # 2) 십만 O(nlogn)
 # i. 이동 함수 : x-1 or x+1
@@ -26,8 +26,8 @@ while(q):
         print(d,end='')
         break
         # - 왜 계속 출력되나 했더니  break안했넿 정답 출력하고 프로그램 종료 시켜야지
-    # - 다음 타겟들 for에서 한 번에 돌리도록 변수 targets인 [children] 변수를 만들어줌.(그래프 없으니까 대신) children이 더 직관적.
-    # - childrens를 구하는 게 복잡하면 새함수 정의
+    # - 다음 타겟들 for에서 한 번에 돌리도록 targets인 변수 [children] 변수를 만들어줌.(그래프 없으니까 대신) children이 더 직관적.
+    # - childrens를 구하는 게 복잡하면 따로 새함수를 정의해서 호출
     
     children=[ v-1,v+1,v*2 ]
     
