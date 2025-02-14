@@ -26,6 +26,8 @@ for out in range(m,n+1):
 
 # - seta 만드는 것도 m으로 시복 줄이기?
 
+# - pypy가 10배 빠르기도 하네
+
 '''
 ### 예전 풀이
 m,n = map(int, input().split())
